@@ -1,6 +1,6 @@
 node {
     stage("Say Hello"){
          properties([pipelineTriggers([cron('* * * * * ')])])
-        sh "echo Hello ${Name}"
+         git 'https://github.com/Nurjan87/jenkinsapril.git'
     }
 }
