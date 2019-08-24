@@ -6,6 +6,15 @@ node {
         git 'https://github.com/Nurjan87/jenkinsapril.git'
     }
     stage("Install Apache"){
-        sh "sh ec2-user@${Remote_instances} sudo yum install httpd -y"
+        sh "ssh   ec2-user@${Remote_instances}    sudo yum install httpd -y"
+    }
+    stage("Create Index.html"){
+        sh "scp  index.html  ec2-user@${Remote_instances}:/tmp"
+    }
+    stage("Move Files"){
+        sh "ssh   ec2-user@${Remote_instances}    sudo mv /tmp/index.html  /var/www/html/index.html"
+    }
+    stage("Restart httpd"){
+        sh "ssh   ec2-user@${Remote_instances} sudo systemctl restart  httpd"
     }
 }
